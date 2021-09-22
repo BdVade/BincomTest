@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Polling Unit results {% endblock %}
+{% block content %}
+    <h2> {{ polling_unit.polling_unit_name }}</h2>
+    <p>
+        {{ polling_unit.polling_unit_description }}
+    </p>
+    <p>{{ results.count }}</p>
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Party Abbreviation</th>
+              <th scope="col">Party Score</th>
+            </tr>
+          </thead>
+
+          <tbody>
+             {% for result in results %}
+                <tr>
+                  <td>{{ result.party_abbreviation }}</td>
+                  <td>{{ result.party_score }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+
+{% endblock %}

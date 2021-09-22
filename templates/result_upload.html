@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Upload Polling Unit results
+{% endblock %}
+
+{% block content %}
+<h1>Upload Polling Unit results</h1>
+
+        <input type="text" placeholder="Enter Polling Unit Unique ID" id="puid">
+        <input type="text" placeholder="Enter number of parties results to upload" id="ninputs">
+        <button class="btn-primary" onclick="myFunction()" id="go">Go!</button>
+
+    <p id="info"></p>
+    <div id="mult">
+
+    </div>
+    {% block scripts %}
+        <script>
+
+    function myFunction() {
+    let x = document.getElementById("ninputs").value;
+    console.log(x)
+    let text;
+    let htmnew = '';
+
+
+    if (isNaN(x) || x < 1 || x > 100) {
+        text = "Awaiting your input, Love";
+
+      } else {
+        text = "Input OK";
+        for (let i = 0; i < x; i++) {
+      htmnew += `
+            <form id="new">
+            <input type='text' placeholder='Enter party Abbreviation'>
+            <input type='number' placeholder='Enter Party score'>
+            <input type='text' placeholder='enter your name'>
+            <button class='btn-success'>Submit</button>
+            </form>`;
+            }
+      }
+
+     document.getElementById("info").innerHTML = text;
+     document.getElementById("mult").innerHTML = htmnew;
+     let elm = document.getElementsByTagName("form");
+     elm = Array.from(elm);
+     elm.forEach((f)=>{
+         f.addEventListener('submit', (e)=>{
+             e.preventDefault();
+             let child  =  f.children;
+             child = Array.from(child);
+             child.pop();
+             let puid = document.getElementById("puid").value
+             let data = new FormData()
+             data.append('party_abbreviation', child[0].value)
+             data.append('party_score', parseInt(child[1].value))
+             data.append('entered_by_user', child[2].value)
+             data.append('polling_unit_uniqueid', puid)
+             for(let pair of data.entries()) {
+                console.log(pair[0]+ ', '+ pair[1]);}
+             let xhttp = new XMLHttpRequest();
+             xhttp.onload = function (){
+                 let resp = this.responseText;
+                 if (resp === "Successful"){
+                 console.log(resp)
+                     f.innerHTML = `<p>`+resp +`</p>`}
+                 else{
+                     f.innerHTML +=  `<p>`+resp +`</p>`
+                 }
+
+
+
+             }
+             xhttp.open('POST', '', true)
+             xhttp.send(data)
+         })
+     })
+
+
+    }
+
+        </script>
+    {% endblock %}
+
+
+{% endblock %}
+

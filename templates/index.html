@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+    <h2> Polling Units</h2>
+    {% for polling_unit in polling_units %}
+        <a href="{% url 'polling_unit' polling_unit.uniqueid %}">
+            <div class="m-5">
+                <h5>Results for {{ polling_unit.polling_unit_name }}</h5>
+                <p>
+                    {{ polling_unit.polling_unit_description }}
+                </p>
+
+                <hr>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}

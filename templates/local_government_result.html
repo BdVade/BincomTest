@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load custom_filter %}
+
+{% block title %} Local government result {% endblock %}
+{% block content %}
+    <h2> {{ local_government.lga_name }} results</h2>
+
+    <table class="table">
+          <thead>
+            <tr>
+                <th scope="col">Party Abbreviation</th>
+                <th scope="col">Party polling units Score Sum</th>
+            </tr>
+          </thead>
+
+          <tbody>
+             {% for result in results_list %}
+                <tr>
+                      <td>{{ result| get_value:'name' }}</td>
+                      <td>{{ result| get_value:'polling_unit_result_sum'}}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+
+{% endblock %}
