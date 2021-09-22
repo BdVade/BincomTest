@@ -1,0 +1,1 @@
+web: gunicorn Bincom.wsgi --log-file -
