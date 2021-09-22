@@ -41,7 +41,7 @@ class AnnouncedPuResults(models.Model):
     party_abbreviation = models.CharField(max_length=4)
     party_score = models.IntegerField()
     entered_by_user = models.CharField(max_length=50)
-    date_entered = models.DateTimeField()
+    date_entered = models.DateTimeField(auto_now_add=True)
     user_ip_address = models.CharField(max_length=50)
 
     class Meta:

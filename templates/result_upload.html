@@ -9,7 +9,7 @@ Upload Polling Unit results
 
         <input type="text" placeholder="Enter Polling Unit Unique ID" id="puid">
         <input type="text" placeholder="Enter number of parties results to upload" id="ninputs">
-        <button class="btn-primary" onclick="myFunction()" id="go">Go!</button>
+        <button class=" btn btn-primary" onclick="myFunction()" id="go">Go!</button>
 
     <p id="info"></p>
     <div id="mult">
@@ -32,11 +32,14 @@ Upload Polling Unit results
         text = "Input OK";
         for (let i = 0; i < x; i++) {
       htmnew += `
-            <form id="new">
-            <input type='text' placeholder='Enter party Abbreviation'>
-            <input type='number' placeholder='Enter Party score'>
-            <input type='text' placeholder='enter your name'>
-            <button class='btn-success'>Submit</button>
+            <form id="new" class="m-5">
+
+                    <input type='text' placeholder='Enter party Abbreviation' class='form-control'>
+
+                    <input type='number' placeholder='Enter Party score' class='form-control'>
+                    <input type='text' placeholder='enter your name' class='form-control'>
+
+            <button class='btn btn-success'>Submit</button>
             </form>`;
             }
       }
@@ -63,7 +66,7 @@ Upload Polling Unit results
              xhttp.onload = function (){
                  let resp = this.responseText;
                  if (resp === "Successful"){
-                 console.log(resp)
+                    console.log(resp)
                      f.innerHTML = `<p>`+resp +`</p>`}
                  else{
                      f.innerHTML +=  `<p>`+resp +`</p>`

@@ -52,8 +52,15 @@ def result_upload(request):
         print(request.POST)
         form = ResultUploadForm(request.POST)
         try:
-            cd = form.cleaned_data
-            AnnouncedPuResults.objects.create(**cd)
+            if form.is_valid():
+                cd = form.cleaned_data
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+            if x_forwarded_for:
+                ip = x_forwarded_for.split(',')[0]
+            else:
+                ip = request.META.get('REMOTE_ADDR')
+            AnnouncedPuResults.objects.create(**cd, user_ip_address=ip)
 
             return JsonResponse("Successful", safe=False)
         except Exception as e:
